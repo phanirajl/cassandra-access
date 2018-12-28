@@ -1,23 +1,35 @@
-package one.observatory.cassandra.cassandra.tables
+package one.observatory.cassandra.tables
 
-import com.outworkers.phantom.dsl._
-import one.observatory.webapp.cassandra.records.ExceptionOccurrence
 import com.outworkers.phantom.NamingStrategy.SnakeCase.caseInsensitive
+import com.outworkers.phantom.dsl._
+import one.observatory.cassandra.Primitives._
+import one.observatory.cassandra.data.{Location, StackFrame}
+import one.observatory.cassandra.records.ExceptionOccurrencesRecord
 
 abstract class ExceptionOccurrences
-    extends Table[ExceptionOccurrences, ExceptionOccurrence] {
+    extends Table[ExceptionOccurrences, ExceptionOccurrencesRecord] {
 
-  object url extends StringColumn with PartitionKey
+  object exceptionId extends UUIDColumn with PartitionKey
 
-  object description extends OptionalStringColumn
+  object occurredAt extends DateTimeColumn with ClusteringOrder with Ascending
 
-  object ingredients extends ListColumn[String]
+  object occurrenceId extends UUIDColumn with ClusteringOrder with Ascending
 
-  object servings extends OptionalIntColumn
+  object simpleClassName extends StringColumn
 
-  object lastcheckedat extends DateTimeColumn
+  object canonicalClassName extends StringColumn
 
-  object props extends MapColumn[String, String]
+  object throwLocation extends JsonColumn[Location]
 
-  object uid extends UUIDColumn
+  object catchLocation extends OptionalJsonColumn[Location]
+
+  object host extends StringColumn
+
+  object processPid extends IntColumn
+
+  object threadName extends StringColumn
+
+  object message extends OptionalStringColumn
+
+  object frames extends JsonColumn[Seq[StackFrame]]
 }
