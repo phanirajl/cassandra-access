@@ -1,4 +1,4 @@
-name := "cassandra"
+name := "cassandra-access"
 
 organization := "one.observatory"
 
