@@ -6,5 +6,5 @@ import one.observatory.cassandra.tables.ExceptionOccurrences
 class CassandraDatabase(connection: CassandraConnection)
     extends PhantomDatabase[CassandraDatabase](connection.default) {
 
-  object exceptionOccurrences extends ExceptionOccurrences with Connector {}
+  object exceptionOccurrences extends ExceptionOccurrences with Connector
 }

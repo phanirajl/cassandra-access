@@ -7,7 +7,6 @@ create table exception_occurrences(
   exception_id uuid,
   occured_at timestamp,
   occurrence_id uuid,
-  simple_class_name text,
   canonical_class_name text,
   throw_location text,
   catch_location text,
